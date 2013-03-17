@@ -1,13 +1,22 @@
 
+function loadstate() {
 
-//if enabled then ...
+    chrome.storage.sync.get("noemailinputstate", function(items) {
+        enabled = items['noemailinputstate'];
+        if(enabled)
+            wipeEmail()
+    });
 
-var inputelems = document.getElementsByTagName("input")
-
-for(var i = 0; i < inputelems.length; i++) {
-    if (inputelems[i].type == "email") {
-        inputelems[i].type = "text"
-    }
 }
 
-// else nothing ...
+window.onload = loadstate;
+
+function wipeEmail() {
+        var inputelems = document.getElementsByTagName("input")
+
+        for(var i = 0; i < inputelems.length; i++) {
+            if (inputelems[i].type == "email") {
+                inputelems[i].type = "text"
+            }
+        }
+}

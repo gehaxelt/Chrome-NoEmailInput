@@ -1,11 +1,7 @@
-var enabled;
-
 var checkelem = document.getElementById("noemailinputactive")
 
 //wait for changes
 checkelem.addEventListener('change',changestate,false)
-
-alert(1)
 
 //initial state
 window.onload = loadstate
@@ -13,14 +9,14 @@ window.onload = loadstate
 //change state
 function changestate() {
     enabled = checkelem.checked;
-    savestate();
+    savestate(enabled);
 }
 
 
 //load state
 function loadstate() {
 
-    chrome.storage.sync.get("noemailinputstate", function(object items) {
+    chrome.storage.sync.get("noemailinputstate", function(items) {
                    enabled = items['noemailinputstate'];
                    checkelem.checked = enabled;
      });
@@ -29,8 +25,8 @@ function loadstate() {
 
 
 //save state
-function savestate() {
+function savestate(state) {
     
-    chrome.storage.sync.set({'noemailinputstate':enabled}, function() { }
+    chrome.storage.sync.set({'noemailinputstate':state}, function() { })
 
 }
